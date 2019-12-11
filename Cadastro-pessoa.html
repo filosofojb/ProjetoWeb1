@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<HTML>
+
+<head>
+    <title>JGCaçamba Cadastro Cliente</title>
+
+    <style type="text/css">
+    body
+    {
+	    margin:0px;
+	    background-color:#f26724;
+	    background-image:url(image/background.jpg);
+	    color:#f9fcf5;
+	    font-family:Arial, Helvetica, sans-serif;
+    }
+    
+    #main{width:600px; height:auto; overflow:hidden; padding-bottom:20px; margin-left:auto; margin-right:auto; 
+    border-radius:5px; padding-left:10px; margin-top:100px; border-top:3px double #f1f1f1; 
+    border-bottom:3px double #f1f1f1; padding-top:20px;
+    }
+    
+    #main table{font-family:"Comic Sans MS", cursive;}
+    /* css code for textbox */
+    #main .tb{height:28px; width:230px; border:1px solid #f26724; color:#fd7838; font-weight:bold; border-left:5px solid #f7f7f7; opacity:0.9;}
+    
+    #main .tb:focus{height:28px; border:1px solid #f26724; outline:none; border-left:5px solid #f7f7f7;}
+
+    /* css code for button*/
+    #main .btn{width:150px; height:32px; outline:none;  color:#f7f7f7; font-weight:bold; border:0px solid #f26724; 
+    text-shadow: 0px 0.5px 0.5px #fff; border-radius: 2px; font-weight: 600; color: #f26724; letter-spacing: 1px; 
+    font-size:14px; background-color:#f1f1f1; -webkit-transition: 1s; -moz-transition: 1s; transition: 1s;}
+  
+    #main .btn:hover{background-color:#f26724; outline:none;  border-radius: 2px; color:#f1f1f1; border:1px solid #f1f1f1;
+    -webkit-transition: 1s; -moz-transition: 1s; transition: 1s; }
+      </style>
+
+</head>
+<main>
+  <article class=>
+    <section class="Cadastro-Pessoa">
+      <form id="adicionarPessoa"
+      action="javascript:enviarForm()">
+        <!-- Main div code -->
+	<div id="main">
+      <div class="h-tag">
+      <h2>Cadastro Cliente</h2>
+      </div>
+      <!-- create account div -->
+      <div class="login">
+      <table cellspacing="2" align="center" cellpadding="8" border="0">
+      <tr>
+      <td align="right">Nome:</td>
+      <td><input type="text" placeholder="Digite Seu Nome Aqui" id="t1" class="tb" /></td>
+      </tr>
+      <tr>
+      <td align="right">Email:</td>
+      <td><input type="text" placeholder="Digite seu E-mail Aqui" id="t2" class="tb" /></td>
+      </tr>
+      <tr>
+      <td align="right">Celular :</td>
+      <td><input type="text" placeholder="Digite seu Celular Aqui" id="t3" class="tb" /></td>
+      </tr>
+      <a href="index.html"><input type="button" value="Voltar ao Inicio" id="Back" class="btn" /></a>
+      <input type="reset" value="Limpar" id="res" class="btn" />
+      <input type="submit" value="Cadastrar" class="btn" onclick=" enviarForm()" /></td>
+      </tr>
+      </table>
+      </div>
+      <!-- create account box ending here.. -->
+      </div>
+      <!-- Main div ending here... -->
+      </body>
+      </html>
+      </form> 
+    </section>
+  </article>
+</main>
+<footer></footer>
+
+<body>
+  <script>
+    function enviarForm() {
+      var form = document.getElementById('adicionarPessoa');
+      var data = {};
+      data['nome'] = form.nome.value
+      data['email'] = form.email.value;
+      data['celular'] = form.celular.value;
+      // console.log(JSON.stringify(data));
+      fetch('http://localhost/ProjetoWeb1/api/post_pessoa.php', {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json()
+          } else {
+            return Promise.reject({ status: res.status, statusText: res.statusText });
+          }
+
+        })
+        .then((data) => console.log(data))
+        .catch(err => console.log('Error message:', err.statusText));
+    }
+  </script>
+
+</html>
